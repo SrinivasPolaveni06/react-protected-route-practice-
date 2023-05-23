@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+//import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/home";
+import Dashboard from "./components/dashboard";
+import Layout from "./components/Layout";
+import Login from "./components/login";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-function App() {
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Login />} />
+          {/* <Route path="home" element={<ProtectedRoute Component={Home} />} /> */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="home" element={<Home />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
